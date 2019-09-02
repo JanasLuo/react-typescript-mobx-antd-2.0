@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="theme-color" content="#000000">
+    <!--
+      manifest.json provides metadata used when your web app is added to the
+      homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
+    -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
+    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+    <link rel="stylesheet" href="./lib/leaflet.css">
+    <!-- <script src="./lib/leaflet.js"></script>
+    <script src="./lib/proj4.js"></script>
+    <script src="./lib/proj4leaflet.js"></script>
+    <script src="./lib/mapv.min.js"></script> -->
+    <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+    <title>指挥中心数字天网系统</title>
+  </head>
+  <body>
+    <noscript>
+      You need to enable JavaScript to run this app.
+    </noscript>
+    <div id="root" class="root"></div>
+    <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
+  </body>
+  <script>
+      (function(designWidth, maxWidth) {
+        var doc = document,
+        win = window,
+        docEl = doc.documentElement,
+        remStyle = document.createElement("style"),
+        tid;
+        //浏览器竖屏与横屏转换的BUG。
+        function refreshRem() {
+            var width = docEl.getBoundingClientRect().width;
+            maxWidth = maxWidth || 540;
+            width>maxWidth && (width=maxWidth);
+            var rem = width * 100 / designWidth;
+            remStyle.innerHTML = 'html{font-size:' + rem + 'px;}';
+        }
+  
+        if (docEl.firstElementChild) {
+            docEl.firstElementChild.appendChild(remStyle);
+        } else {
+            var wrap = doc.createElement("div");
+            wrap.appendChild(remStyle);
+            doc.write(wrap.innerHTML);
+            wrap = null;
+        }
+        //要等 wiewport 设置好后才能执行 refreshRem，不然 refreshRem 会执行2次；
+        refreshRem();
+  
+        win.addEventListener("resize", function() {
+            clearTimeout(tid); //防止执行两次
+            tid = setTimeout(refreshRem, 300);
+        }, false);
+  
+        win.addEventListener("pageshow", function(e) {
+            if (e.persisted) { // 浏览器后退的时候重新计算
+                clearTimeout(tid);
+                tid = setTimeout(refreshRem, 300);
+            }
+        }, false);
+  
+        if (doc.readyState === "complete") {
+            doc.body.style.fontSize = "16px";
+        } else {
+            doc.addEventListener("DOMContentLoaded", function(e) {
+              doc.body.style.fontSize = "16px";
+            }, false);
+        }
+    })(1920, 3860);
+    </script>
+</html>

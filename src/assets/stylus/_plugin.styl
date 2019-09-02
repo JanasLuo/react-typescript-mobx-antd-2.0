@@ -1,0 +1,18 @@
+input
+  background-color: transparent;
+
+.ant-table
+  color: rgba(255, 255, 255, .8);
+
+.ant-table-small
+  border: 0;
+  border-radius: 0;
+
+  &.ant-table
+    & > .ant-table-content
+      border-right: 0;
+    &.ant-table-fixed-header 
+      .ant-table-scroll
+        .ant-table-header
+          &::-webkit-scrollbar
+            border: 0;
