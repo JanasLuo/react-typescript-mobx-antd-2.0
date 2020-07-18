@@ -10,7 +10,7 @@
     "flex-polyfill": "^1.0.2",
     "heatmap.js": "^2.0.5",
     "js-cookie": "^2.2.0",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.19",
     "mapv": "^2.0.35",
     "mobx": "^4.13.0",
     "mobx-react": "^5.4.4",
